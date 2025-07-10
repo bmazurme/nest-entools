@@ -2,7 +2,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { User } from '../../users/entities/user.entity';
-import { UserRole } from '../../user-roles/entities/user-role.entity';
 import { Role } from '../../roles/entities/role.entity';
 
 export const TypeOrmModuleConfig = TypeOrmModule.forRootAsync({
@@ -14,7 +13,7 @@ export const TypeOrmModuleConfig = TypeOrmModule.forRootAsync({
     username: configService.get('POSTGRES_USER') ?? 'postgres',
     password: configService.get('POSTGRES_PASSWORD') ?? 'newPassword',
     database: configService.get('POSTGRES_DB') ?? 'my-db-name',
-    entities: [User, UserRole, Role],
+    entities: [User, Role],
     synchronize: true,
   }),
   inject: [ConfigService],
