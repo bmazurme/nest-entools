@@ -10,7 +10,7 @@ import { BlocksModule } from './blocks/blocks.module';
 import { DocumentTypesModule } from './document-types/document-types.module';
 import { RainRunoffItemsModule } from './rain-runoff-items/rain-runoff-items.module';
 import { RolesModule } from './roles/roles.module';
-import { UserRolesModule } from './user-roles/user-roles.module';
+import { OAuthModule } from './oauth/oauth.module';
 
 import { TypeOrmModuleConfig } from './common/configs/type-orm.config';
 
@@ -25,7 +25,7 @@ import { TypeOrmModuleConfig } from './common/configs/type-orm.config';
     DocumentTypesModule,
     RainRunoffItemsModule,
     RolesModule,
-    UserRolesModule,
+    OAuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
