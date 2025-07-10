@@ -36,12 +36,14 @@ export class UsersService {
   async findOne(id: number) {
     return await this.userRepository.findOne({
       where: { id },
+      relations: ['roles'],
     });
   }
 
   async findByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
+      relations: ['roles'],
     });
   }
 
@@ -53,8 +55,8 @@ export class UsersService {
 
     if (user?.roles) {
       const role = new Role();
-      role.id = updateUserDto.id;
-      role.name = updateUserDto.name;
+      role.id = updateUserDto.role.id;
+      role.name = updateUserDto.role.name;
 
       await user.updateRoles([role], this.userRepository.manager);
     }
