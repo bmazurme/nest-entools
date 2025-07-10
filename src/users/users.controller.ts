@@ -13,10 +13,29 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+/**
+ * Основной контроллер для работы с пользователями
+ *
+ * @class UsersController
+ * @description Контроллер содержит методы для создания, получения, обновления и удаления пользователей
+ */
 @Controller('users')
 export class UsersController {
+  /**
+   * Конструктор контроллера
+   *
+   * @constructor
+   * @param {UsersService} usersService - Сервис для работы с пользователями
+   */
   constructor(private readonly usersService: UsersService) {}
 
+  /**
+   * Создает нового пользователя
+   *
+   * @method create
+   * @param {CreateUserDto} createUserDto - Данные для создания пользователя
+   * @returns {Promise<any>} - Созданный пользователь
+   */
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({ status: 201, description: 'User successfully created' })
@@ -26,6 +45,12 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  /**
+   * Получает всех пользователей
+   *
+   * @method findAll
+   * @returns {Promise<any[]>} - Список всех пользователей
+   */
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'List of users' })
@@ -33,6 +58,13 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  /**
+   * Получает пользователя по ID
+   *
+   * @method findOne
+   * @param {string} id - ID пользователя
+   * @returns {Promise<any>} - Пользователь
+   */
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
@@ -42,6 +74,14 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
+  /**
+   * Обновляет пользователя по ID
+   *
+   * @method update
+   * @param {string} id - ID пользователя
+   * @param {UpdateUserDto} updateUserDto - Данные для обновления
+   * @returns {Promise<any>} - Обновленный пользователь
+   */
   @Patch(':id')
   @ApiOperation({ summary: 'Update user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
@@ -52,6 +92,13 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  /**
+   * Удаляет пользователя по ID
+   *
+   * @method remove
+   * @param {string} id - ID пользователя
+   * @returns {Promise<void>} - Удаленный пользователь
+   */
   @Delete(':id')
   @ApiOperation({ summary: 'Delete user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
