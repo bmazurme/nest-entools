@@ -23,6 +23,6 @@ export class Project extends BaseEntity {
     nullable: false, // Создатель обязателен
     onDelete: 'CASCADE', // При удалении пользователя удаляем и проекты
   })
-  @JoinColumn({ name: 'creator_id' }) // Название колонки в БД
+  @JoinColumn({ name: 'creatorId' }) // Название колонки в БД
   creator: User;
 }
