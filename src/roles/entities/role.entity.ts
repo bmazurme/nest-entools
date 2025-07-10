@@ -1,1 +1,26 @@
-export class Role {}
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+
+import { User } from '../../users/entities/user.entity';
+import { BaseEntity } from '../../common/entities/base.entity';
+
+@Entity({ name: 'roles' })
+export class Role extends BaseEntity {
+  @Column({
+    type: 'varchar',
+    length: 50,
+    unique: true,
+    nullable: false,
+  })
+  name: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  description: string;
+
+  @ManyToMany(() => User, (user) => user.roles)
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'id' },
+  })
+  users: User[];
+}
