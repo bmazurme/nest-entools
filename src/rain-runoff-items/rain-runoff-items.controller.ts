@@ -1,11 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+
 import { RainRunoffItemsService } from './rain-runoff-items.service';
 import { CreateRainRunoffItemDto } from './dto/create-rain-runoff-item.dto';
 import { UpdateRainRunoffItemDto } from './dto/update-rain-runoff-item.dto';
 
 @Controller('rain-runoff-items')
 export class RainRunoffItemsController {
-  constructor(private readonly rainRunoffItemsService: RainRunoffItemsService) {}
+  constructor(
+    private readonly rainRunoffItemsService: RainRunoffItemsService,
+  ) {}
 
   @Post()
   create(@Body() createRainRunoffItemDto: CreateRainRunoffItemDto) {
@@ -23,7 +34,10 @@ export class RainRunoffItemsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRainRunoffItemDto: UpdateRainRunoffItemDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateRainRunoffItemDto: UpdateRainRunoffItemDto,
+  ) {
     return this.rainRunoffItemsService.update(+id, updateRainRunoffItemDto);
   }
 

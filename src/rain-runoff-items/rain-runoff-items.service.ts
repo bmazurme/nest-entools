@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreateRainRunoffItemDto } from './dto/create-rain-runoff-item.dto';
 import { UpdateRainRunoffItemDto } from './dto/update-rain-runoff-item.dto';
+import { RainRunoffItem } from './entities/rain-runoff-item.entity';
 
 @Injectable()
 export class RainRunoffItemsService {
-  create(createRainRunoffItemDto: CreateRainRunoffItemDto) {
-    return 'This action adds a new rainRunoffItem';
+  constructor(
+    @InjectRepository(RainRunoffItem)
+    private readonly rainRunoffItemRepository: Repository<RainRunoffItem>,
+  ) {}
+
+  async create(createRainRunoffItemDto: CreateRainRunoffItemDto) {
+    return await this.rainRunoffItemRepository.save(createRainRunoffItemDto);
   }
 
   findAll() {
-    return `This action returns all rainRunoffItems`;
+    return this.rainRunoffItemRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} rainRunoffItem`;
+    return this.rainRunoffItemRepository.findOne({
+      where: { id },
+    });
   }
 
   update(id: number, updateRainRunoffItemDto: UpdateRainRunoffItemDto) {
-    return `This action updates a #${id} rainRunoffItem`;
+    return this.rainRunoffItemRepository.update(+id, updateRainRunoffItemDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} rainRunoffItem`;
+    return this.rainRunoffItemRepository.delete(id);
   }
 }
