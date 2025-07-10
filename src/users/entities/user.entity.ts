@@ -1,7 +1,15 @@
-import { Entity, Column, JoinTable, ManyToMany, EntityManager } from 'typeorm';
+import {
+  Entity,
+  Column,
+  JoinTable,
+  ManyToMany,
+  EntityManager,
+  OneToMany,
+} from 'typeorm';
 
 import { Role } from '../../roles/entities/role.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
+import { Project } from '../../projects/entities/project.entity';
 
 /**
  * Сущность пользователя
@@ -49,6 +57,10 @@ export class User extends BaseEntity {
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
   })
   roles: Role[];
+
+  // Обратная связь к проектам
+  @OneToMany(() => Project, (project) => project.creator)
+  projects: Project[];
 
   async updateRoles(newRoles: Role[], manager: EntityManager): Promise<void> {
     try {
