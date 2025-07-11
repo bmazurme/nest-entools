@@ -15,13 +15,38 @@ export class ProjectsService {
   ) {}
 
   async create(createProjectDto: CreateProjectDto, user: User) {
+    const current = await this.findCurrent(user);
+
+    if (current) {
+      current.isActive = false;
+      await this.projectRepository.update(current.id, current);
+    }
+
     const project = new Project();
     project.name = createProjectDto.name;
     project.description = createProjectDto.description;
     project.address = createProjectDto.address;
     project.creator = user;
+    project.isActive = true;
 
     return await this.projectRepository.save(project);
+  }
+
+  async setActive(id: number, user: User) {
+    const current = await this.findCurrent(user);
+    const target = await this.findOne(id);
+
+    if (current) {
+      current.isActive = false;
+      await this.projectRepository.update(current.id, current);
+    }
+
+    if (target) {
+      target.isActive = true;
+      await this.projectRepository.update(target.id, target);
+    }
+
+    return target;
   }
 
   findAll() {
@@ -34,11 +59,32 @@ export class ProjectsService {
     });
   }
 
+  async findCurrent(user: User) {
+    return await this.projectRepository.findOne({
+      where: {
+        creator: user,
+        isActive: true,
+      },
+    });
+  }
+
   update(id: number, updateProjectDto: UpdateProjectDto) {
     return this.projectRepository.update(+id, updateProjectDto);
   }
 
   remove(id: number) {
     return this.projectRepository.delete(id);
+  }
+
+  async findAllByUser(user: User) {
+    return await this.projectRepository.find({
+      where: {
+        creator: user,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
   }
 }
