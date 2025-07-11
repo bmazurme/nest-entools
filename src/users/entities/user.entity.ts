@@ -1,3 +1,7 @@
+/**
+ * Импортируем необходимые типы и декораторы из TypeORM
+ * @packageDocumentation
+ */
 import {
   Entity,
   Column,
@@ -13,42 +17,33 @@ import { Project } from '../../projects/entities/project.entity';
 
 /**
  * Сущность пользователя
- * Представляет модель пользователя системы
- *
- * @category Entities
- * @class User
+ * @extends BaseEntity
  */
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
   /**
    * Уникальный email пользователя
-   * Должен быть уникальным в системе
-   * Максимальная длина 255 символов
-   *
    * @type {string}
-   * @required
    */
   @Column({ type: 'varchar', length: 255, unique: true, nullable: false })
   email: string;
 
   /**
    * Статус активности пользователя
-   * По умолчанию установлен в false
-   *
    * @type {boolean}
-   * @default false
-   * @required
    */
   @Column({ type: 'boolean', default: false, nullable: false })
   isActive: boolean;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  firstName: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  lastName: string;
+
   /**
-   * Массив ролей пользователя
-   * Связь многие-ко-многим с сущностью Role
-   * Хранится в промежуточной таблице user_roles
-   *
+   * Связь "многие ко многим" с ролями пользователя
    * @type {Role[]}
-   * @manyToMany
    */
   @ManyToMany(() => Role, (role) => role.users)
   @JoinTable({
@@ -58,10 +53,20 @@ export class User extends BaseEntity {
   })
   roles: Role[];
 
+  /**
+   * Связь "один ко многим" с проектами, где пользователь является создателем
+   * @type {Project[]}
+   */
   // Обратная связь к проектам
   @OneToMany(() => Project, (project) => project.creator)
   projects: Project[];
 
+  /**
+   * Метод для обновления ролей пользователя
+   * @param {Role[]} newRoles - массив новых ролей
+   * @param {EntityManager} manager - менеджер сущности для сохранения изменений
+   * @returns {Promise<void>}
+   */
   async updateRoles(newRoles: Role[], manager: EntityManager): Promise<void> {
     try {
       this.roles = [];
