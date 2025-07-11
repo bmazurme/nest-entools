@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { JwtGuard } from '../common/guards/jwt.guard';
 
 /**
  * Основной контроллер для работы с пользователями
@@ -28,6 +32,12 @@ export class UsersController {
    * @param {UsersService} usersService - Сервис для работы с пользователями
    */
   constructor(private readonly usersService: UsersService) {}
+
+  @UseGuards(JwtGuard)
+  @Get('/me')
+  findCurrent(@Req() req: { user: User }) {
+    return this.usersService.findCurrent(req.user);
+  }
 
   /**
    * Создает нового пользователя
@@ -89,7 +99,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'User updated' })
   @ApiResponse({ status: 404, description: 'User not found' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.updateUserProfile(+id, updateUserDto);
   }
 
   /**
