@@ -23,7 +23,9 @@ export class DocumentsService {
   }
 
   async findAll() {
-    return await this.documentRepository.find({});
+    return await this.documentRepository.find({
+      relations: ['project'],
+    });
   }
 
   async findOne(id: number) {
