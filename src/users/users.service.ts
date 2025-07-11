@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -64,7 +68,45 @@ export class UsersService {
     return user;
   }
 
+  async updateUserProfile(id: number, updateUserDto: UpdateUserDto) {
+    // Используем findOrFail для исключения лишнего условия if
+    try {
+      const user = await this.userRepository.findOneOrFail({
+        where: { id },
+        relations: ['roles'],
+      });
+
+      // Обновляем только измененные поля
+      const updatedFields = Object.entries(updateUserDto).reduce(
+        (acc, [key, value]) => {
+          if (user[key] !== value) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {} as Partial<UpdateUserDto>,
+      );
+
+      // Если есть изменения - обновляем
+      if (Object.keys(updatedFields).length > 0) {
+        await this.userRepository.update(id, updatedFields);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      // Обработка ошибки, если пользователь не найден
+      throw new NotFoundException('Пользователь не найден');
+    }
+  }
+
   remove(id: number) {
     return this.userRepository.delete(id);
+  }
+
+  async findCurrent(user: User) {
+    return await this.userRepository.findOne({
+      where: { id: user.id },
+      relations: ['roles'],
+    });
   }
 }
