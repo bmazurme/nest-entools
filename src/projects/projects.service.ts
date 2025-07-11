@@ -68,8 +68,11 @@ export class ProjectsService {
     });
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return this.projectRepository.update(+id, updateProjectDto);
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    await this.projectRepository.update(+id, updateProjectDto);
+    return await this.projectRepository.findOne({
+      where: { id },
+    });
   }
 
   remove(id: number) {
