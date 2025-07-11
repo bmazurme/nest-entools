@@ -15,6 +15,9 @@ export class Project extends BaseEntity {
   @Column({ nullable: false })
   address: string;
 
+  @Column({ type: 'boolean', default: false, nullable: false })
+  isActive: boolean;
+
   @OneToMany(() => Document, (document) => document.project)
   documents: Document[];
 
