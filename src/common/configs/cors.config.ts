@@ -14,12 +14,16 @@ export const configureCors = (app: INestApplication) => {
      * Домены, с которых разрешены запросы
      * Используйте * для разрешения всех доменов в разработке
      */
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'http://localhost:3005',
+    ],
 
     /**
      * Разрешённые HTTP методы
      */
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
 
     /**
      * Разрешённые HTTP заголовки
