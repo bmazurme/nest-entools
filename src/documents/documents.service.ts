@@ -38,8 +38,12 @@ export class DocumentsService {
     });
   }
 
-  update(id: number, updateDocumentDto: UpdateDocumentDto) {
-    return this.documentRepository.update(+id, updateDocumentDto);
+  async update(id: number, updateDocumentDto: UpdateDocumentDto) {
+    await this.documentRepository.update(+id, updateDocumentDto);
+
+    return await this.documentRepository.findOne({
+      where: { id },
+    });
   }
 
   remove(id: number) {
