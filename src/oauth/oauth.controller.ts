@@ -7,8 +7,10 @@ import {
   Req,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Res,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 
 import { OAuthService } from './oauth.service';
 
@@ -29,7 +31,8 @@ export class OAuthController {
   @UseGuards(AuthGuard('yandex'))
   async yandexLoginRedirect(
     @Req() req: Request & { user: { user: User } },
+    @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    return this.oauthService.signinOrSignup(req.user.user);
+    return this.oauthService.signinOrSignup(req.user.user, response);
   }
 }
