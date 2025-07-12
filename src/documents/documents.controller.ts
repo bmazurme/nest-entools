@@ -21,6 +21,11 @@ export class DocumentsController {
     return this.documentsService.create(createDocumentDto);
   }
 
+  @Get('/project:id')
+  findByProject(@Param('id') id: string) {
+    return this.documentsService.findByProject(+id);
+  }
+
   @Get()
   findAll() {
     return this.documentsService.findAll();
@@ -29,11 +34,6 @@ export class DocumentsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.documentsService.findOne(+id);
-  }
-
-  @Get('/project/:id')
-  findByProject(@Param('id') projectId: string) {
-    return this.documentsService.findByProject(+projectId);
   }
 
   @Patch(':id')
