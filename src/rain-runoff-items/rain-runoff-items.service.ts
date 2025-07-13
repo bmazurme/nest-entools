@@ -34,4 +34,12 @@ export class RainRunoffItemsService {
   remove(id: number) {
     return this.rainRunoffItemRepository.delete(id);
   }
+
+  async findByBlock(blockId: number) {
+    const items = await this.rainRunoffItemRepository.find({
+      where: { block: { id: blockId } },
+    });
+
+    return { id: blockId, items };
+  }
 }
