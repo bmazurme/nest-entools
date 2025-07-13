@@ -21,7 +21,7 @@ export class DocumentsController {
     return this.documentsService.create(createDocumentDto);
   }
 
-  @Get('/project:id')
+  @Get('/project/:id')
   findByProject(@Param('id') id: string) {
     return this.documentsService.findByProject(+id);
   }
