@@ -21,7 +21,7 @@ export class BlocksController {
     return this.blocksService.create(createBlockDto);
   }
 
-  @Get('/document:id')
+  @Get('/document/:id')
   findByProject(@Param('id') id: string) {
     return this.blocksService.findByDocument(+id);
   }
@@ -36,7 +36,7 @@ export class BlocksController {
     return this.blocksService.findOne(+id);
   }
 
-  @Patch('/document:id')
+  @Patch('/document/:id')
   refreshBlocks(
     @Param('id') id: string,
     @Body() updateBlockDto: UpdateBlockDto & { id: number; index: number }[],
