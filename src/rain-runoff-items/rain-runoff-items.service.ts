@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { CreateRainRunoffItemDto } from './dto/create-rain-runoff-item.dto';
 import { UpdateRainRunoffItemDto } from './dto/update-rain-runoff-item.dto';
@@ -22,9 +22,7 @@ export class RainRunoffItemsService {
   }
 
   findOne(id: number) {
-    return this.rainRunoffItemRepository.findOne({
-      where: { id },
-    });
+    return this.rainRunoffItemRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateRainRunoffItemDto: UpdateRainRunoffItemDto) {
@@ -41,5 +39,27 @@ export class RainRunoffItemsService {
     });
 
     return { id: blockId, items };
+  }
+
+  async refreshItems(updateRainRunoffItemDto: UpdateRainRunoffItemDto[]) {
+    await this.rainRunoffItemRepository.manager.transaction(
+      async (transactionalEntityManager) => {
+        for (const dto of updateRainRunoffItemDto) {
+          await transactionalEntityManager.update(
+            RainRunoffItem,
+            { id: dto.id },
+            {
+              index: dto.index,
+              block: { id: parseInt(dto.column.split('_')[1], 10) },
+            },
+          );
+        }
+      },
+    );
+
+    return this.rainRunoffItemRepository.find({
+      where: { id: In(updateRainRunoffItemDto.map((d) => d.id)) },
+      relations: ['block'],
+    });
   }
 }
