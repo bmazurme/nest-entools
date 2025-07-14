@@ -23,6 +23,11 @@ export class RainRunoffItemsController {
     return this.rainRunoffItemsService.create(createRainRunoffItemDto);
   }
 
+  @Get('/block/:id')
+  findByBlock(@Param('id') id: string) {
+    return this.rainRunoffItemsService.findByBlock(+id);
+  }
+
   @Get()
   findAll() {
     return this.rainRunoffItemsService.findAll();
@@ -41,8 +46,18 @@ export class RainRunoffItemsController {
     return this.rainRunoffItemsService.update(+id, updateRainRunoffItemDto);
   }
 
+  @Patch()
+  refreshItems(@Body() updateRainRunoffItemDto: UpdateRainRunoffItemDto[]) {
+    return this.rainRunoffItemsService.refreshItems(updateRainRunoffItemDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.rainRunoffItemsService.remove(+id);
   }
+
+  // @Patch('/document/:documentId')
+  // refreshItems(@Param('documentId') documentId: string, @Body() data: any) {
+  //   return this.rainRunoffItemsService.refreshItems(+documentId, data);
+  // }
 }
