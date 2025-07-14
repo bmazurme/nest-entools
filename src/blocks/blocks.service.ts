@@ -33,7 +33,9 @@ export class BlocksService {
   }
 
   async update(id: number, updateBlockDto: UpdateBlockDto) {
-    return await this.blockRepository.update(+id, updateBlockDto);
+    return await this.blockRepository.update(+id, {
+      name: updateBlockDto.name,
+    });
   }
 
   async remove(id: number) {
