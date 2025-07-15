@@ -19,6 +19,9 @@ export class Document extends BaseEntity {
   @JoinColumn({ name: 'typeId' })
   type: DocumentType;
 
-  @OneToMany(() => Block, (block) => block.document)
+  @OneToMany(() => Block, (block) => block.document, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   blocks: Block[];
 }
