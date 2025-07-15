@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Block } from '../../blocks/entities/block.entity';
+import { RainRunoff } from '../../rain-runoffs/entities/rain-runoff.entity';
 
 @Entity()
-export class RainRunoffItem extends BaseEntity {
+export class Item extends BaseEntity {
   @Column({
     nullable: false,
     length: 100,
@@ -16,8 +17,12 @@ export class RainRunoffItem extends BaseEntity {
   })
   index: number;
 
+  @OneToOne(() => RainRunoff, (rainRunoff) => rainRunoff.item)
+  rainRunoff: RainRunoff;
+
   @ManyToOne(() => Block, (block) => block.items, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'blockId' })
   block: Block;
