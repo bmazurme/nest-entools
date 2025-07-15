@@ -6,7 +6,7 @@ DOCUMENT <--> |document_id| BLOCK[Block]
 BLOCK[Block] <--> |block_id| ITEM[Item]
 ITEM --> RAIN
 ITEM --> THERM
-LIBRARY[Library] --> |document_type_id| ITEM[Item]
+LIBRARY_RAIN[Library] --> |document_type_id| RAIN[Item]
 DOCUMENT-TYPE[Document type] --> |document_type_id| DOCUMENT
 
 USER-PROFILE[Profile] <--> |user_id| USER-SETTINGS[Settings]
