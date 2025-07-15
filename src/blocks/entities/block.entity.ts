@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Document } from '../../documents/entities/document.entity';
-import { RainRunoffItem } from '../../rain-runoff-items/entities/rain-runoff-item.entity';
+import { Item } from '../../items/entities/item.entity';
 
 @Entity()
 export class Block extends BaseEntity {
@@ -19,10 +19,14 @@ export class Block extends BaseEntity {
 
   @ManyToOne(() => Document, (document) => document.blocks, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'document_id' })
   document: Document;
 
-  @OneToMany(() => RainRunoffItem, (rainRunoffItem) => rainRunoffItem.block)
-  items: RainRunoffItem;
+  @OneToMany(() => Item, (rainRunoffItem) => rainRunoffItem.block, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  items: Item;
 }
