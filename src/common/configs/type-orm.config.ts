@@ -7,8 +7,8 @@ import { Project } from '../../projects/entities/project.entity';
 import { Document } from '../../documents/entities/document.entity';
 import { DocumentType } from '../../document-types/entities/document-type.entity';
 import { Block } from '../../blocks/entities/block.entity';
-
-import { RainRunoffItem } from '../../rain-runoff-items/entities/rain-runoff-item.entity';
+import { Item } from '../../items/entities/item.entity';
+import { RainRunoff } from 'src/rain-runoffs/entities/rain-runoff.entity';
 
 export const TypeOrmModuleConfig = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
@@ -26,7 +26,8 @@ export const TypeOrmModuleConfig = TypeOrmModule.forRootAsync({
       Document,
       DocumentType,
       Block,
-      RainRunoffItem,
+      Item,
+      RainRunoff,
     ],
     synchronize: true,
   }),
