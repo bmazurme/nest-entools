@@ -11,10 +11,10 @@ import { RainRunoff } from './entities/rain-runoff.entity';
 export class RainRunoffsService {
   constructor(
     @InjectRepository(RainRunoff)
-    private readonly itemRepository: Repository<RainRunoff>,
+    private readonly rainRunoffRepository: Repository<RainRunoff>,
   ) {}
   create(createRainRunoffDto: CreateRainRunoffDto) {
-    return this.itemRepository.save(createRainRunoffDto);
+    return this.rainRunoffRepository.save(createRainRunoffDto);
   }
 
   findAll() {
@@ -26,10 +26,10 @@ export class RainRunoffsService {
   }
 
   update(id: number, updateRainRunoffDto: UpdateRainRunoffDto) {
-    return `This action updates a #${id} rainRunoff`;
+    return this.rainRunoffRepository.update(+id, updateRainRunoffDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} rainRunoff`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} rainRunoff`;
+  // }
 }
