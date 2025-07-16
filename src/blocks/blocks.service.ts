@@ -20,7 +20,7 @@ export class BlocksService {
   async findByDocument(documentId: number) {
     return await this.blockRepository.find({
       where: { document: { id: documentId } },
-      relations: ['items'],
+      relations: ['items', 'items.rainRunoff'],
     });
   }
 
