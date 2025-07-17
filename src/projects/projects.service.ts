@@ -65,6 +65,12 @@ export class ProjectsService {
         creator: user,
         isActive: true,
       },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        isActive: true,
+      },
     });
   }
 
