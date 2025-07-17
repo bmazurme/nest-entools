@@ -5,16 +5,20 @@ import { In, Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item } from './entities/item.entity';
+import { RainRunoffsService } from '../rain-runoffs/rain-runoffs.service';
 
 @Injectable()
 export class ItemsService {
   constructor(
     @InjectRepository(Item)
     private readonly itemRepository: Repository<Item>,
+    private readonly rainRunoffRepository: RainRunoffsService,
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    return await this.itemRepository.save(createItemDto);
+    const rainRunoff = await this.rainRunoffRepository.create({});
+    // console.log(rainRunoff);
+    return await this.itemRepository.save({ ...createItemDto, rainRunoff });
   }
 
   findAll() {
