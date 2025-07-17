@@ -17,7 +17,11 @@ export class Item extends BaseEntity {
   })
   index: number;
 
-  @OneToOne(() => RainRunoff, (rainRunoff) => rainRunoff.item)
+  @OneToOne(() => RainRunoff, (rainRunoff) => rainRunoff.item, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
   rainRunoff: RainRunoff;
 
   @ManyToOne(() => Block, (block) => block.items, {
