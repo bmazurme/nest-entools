@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { RainRunoff } from './entities/rain-runoff.entity';
 import { RainRunoffsService } from './rain-runoffs.service';
 import { RainRunoffsController } from './rain-runoffs.controller';
+
+import { RainRunoff } from './entities/rain-runoff.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RainRunoff])],
