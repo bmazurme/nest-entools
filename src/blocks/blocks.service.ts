@@ -21,6 +21,35 @@ export class BlocksService {
     return await this.blockRepository.find({
       where: { document: { id: documentId } },
       relations: ['items', 'items.rainRunoff'],
+      select: {
+        id: true,
+        index: true,
+        name: true,
+        items: {
+          id: true,
+          index: true,
+          name: true,
+          rainRunoff: {
+            id: true,
+            roof: true,
+            pavements: true,
+            tracks: true,
+            ground: true,
+            cobblestone: true,
+            stone: true,
+            lawns: true,
+            place: true,
+            intensity: true,
+            condition: true,
+            timeInit: true,
+            lengthPipe: true,
+            lengthTray: true,
+            velocityPipe: true,
+            velocityTray: true,
+            flow: true,
+          },
+        },
+      },
     });
   }
 
