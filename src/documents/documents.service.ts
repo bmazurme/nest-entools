@@ -29,12 +29,27 @@ export class DocumentsService {
   }
 
   async findOne(id: number) {
-    return await this.documentRepository.findOne({ where: { id } });
+    return await this.documentRepository.findOne({
+      where: { id },
+      relations: ['blocks', 'blocks.items'],
+      select: {
+        id: true,
+        name: true,
+      },
+    });
   }
 
   async findByProject(projectId: number) {
     return await this.documentRepository.find({
-      where: { project: { id: projectId } },
+      where: {
+        project: {
+          id: projectId,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
     });
   }
 
