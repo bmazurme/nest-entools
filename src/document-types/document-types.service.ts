@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 
 import { CreateDocumentTypeDto } from './dto/create-document-type.dto';
 import { UpdateDocumentTypeDto } from './dto/update-document-type.dto';
+
 import { DocumentType } from './entities/document-type.entity';
 
 @Injectable()
@@ -23,7 +24,9 @@ export class DocumentTypesService {
   }
 
   async findOne(id: number) {
-    return await this.documentTypeRepository.findOne({ where: { id } });
+    return await this.documentTypeRepository.findOne({
+      where: { id },
+    });
   }
 
   update(id: number, updateDocumentTypeDto: UpdateDocumentTypeDto) {
