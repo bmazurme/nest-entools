@@ -12,6 +12,7 @@ import { Role } from '../roles/entities/role.entity';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 
 @Injectable()
 export class UsersService {
@@ -97,6 +98,10 @@ export class UsersService {
       // Обработка ошибки, если пользователь не найден
       throw new NotFoundException('Пользователь не найден');
     }
+  }
+
+  async updateUserStatus(id: number, updateUserStatusDto: UpdateUserStatusDto) {
+    return await this.userRepository.update(+id, updateUserStatusDto);
   }
 
   remove(id: number) {
