@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
 
@@ -9,6 +10,8 @@ import { configureCors } from './common/configs/cors.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, loggerConfig);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  app.use(cookieParser());
   configureCors(app);
 
   const documentFactory = () =>
