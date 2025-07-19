@@ -6,6 +6,7 @@ import { CreateBlockDto } from './dto/create-block.dto';
 import { UpdateBlockDto } from './dto/update-block.dto';
 
 import { Block } from './entities/block.entity';
+
 @Injectable()
 export class BlocksService {
   constructor(
