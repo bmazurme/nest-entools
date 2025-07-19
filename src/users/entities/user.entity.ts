@@ -41,6 +41,9 @@ export class User extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   lastName: string;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  status: string;
+
   /**
    * Связь "многие ко многим" с ролями пользователя
    * @type {Role[]}
