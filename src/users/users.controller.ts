@@ -14,6 +14,7 @@ import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 import { User } from './entities/user.entity';
 import { JwtGuard } from '../common/guards/jwt.guard';
 
@@ -100,6 +101,14 @@ export class UsersController {
   @ApiResponse({ status: 404, description: 'User not found' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.updateUserProfile(+id, updateUserDto);
+  }
+
+  @Patch('status/:id')
+  updateStatus(
+    @Param('id') id: string,
+    @Body() updateUserStatusDto: UpdateUserStatusDto,
+  ) {
+    return this.usersService.updateUserStatus(+id, updateUserStatusDto);
   }
 
   /**
