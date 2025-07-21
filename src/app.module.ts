@@ -8,11 +8,12 @@ import { ProjectsModule } from './projects/projects.module';
 import { DocumentsModule } from './documents/documents.module';
 import { BlocksModule } from './blocks/blocks.module';
 import { DocumentTypesModule } from './document-types/document-types.module';
-import { RainRunoffItemsModule } from './rain-runoff-items/rain-runoff-items.module';
+import { ItemsModule } from './items/items.module';
 import { RolesModule } from './roles/roles.module';
 import { OAuthModule } from './oauth/oauth.module';
 
 import { TypeOrmModuleConfig } from './common/configs/type-orm.config';
+import { RainRunoffsModule } from './rain-runoffs/rain-runoffs.module';
 
 @Module({
   imports: [
@@ -23,9 +24,10 @@ import { TypeOrmModuleConfig } from './common/configs/type-orm.config';
     DocumentsModule,
     BlocksModule,
     DocumentTypesModule,
-    RainRunoffItemsModule,
+    ItemsModule,
     RolesModule,
     OAuthModule,
+    RainRunoffsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
