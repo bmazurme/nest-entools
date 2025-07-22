@@ -17,12 +17,12 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtGuard } from '../common/guards/jwt.guard';
 import { User } from '../users/entities/user.entity';
 
+@UseGuards(JwtGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
-  @UseGuards(JwtGuard)
   create(
     @Body() createProjectDto: CreateProjectDto,
     @Req() req: { user: User },
@@ -31,19 +31,16 @@ export class ProjectsController {
   }
 
   @Put(':id')
-  @UseGuards(JwtGuard)
   setActive(@Param('id') id: string, @Req() req: { user: User }) {
     return this.projectsService.setActive(+id, req.user);
   }
 
   @Get('/my')
-  @UseGuards(JwtGuard)
   findAllByUser(@Req() req: { user: User }) {
     return this.projectsService.findAllByUser(req.user);
   }
 
   @Get('/current')
-  @UseGuards(JwtGuard)
   findCurrent(@Req() req: { user: User }) {
     return this.projectsService.findCurrent(req.user);
   }
