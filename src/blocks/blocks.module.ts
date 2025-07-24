@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { BlocksService } from './blocks.service';
 import { BlocksController } from './blocks.controller';
+
 import { Block } from './entities/block.entity';
 
 @Module({
