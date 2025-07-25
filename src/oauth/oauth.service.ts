@@ -39,7 +39,7 @@ export class OAuthService {
     // return {
     //   access_token: this.jwtService.sign(payload),
     // };
-    response.cookie('access-token', this.jwtService.sign(payload), {
+    response.cookie('access_token', this.jwtService.sign(payload), {
       httpOnly: true,
       maxAge: 3600000,
     });
