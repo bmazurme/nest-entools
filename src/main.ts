@@ -10,7 +10,7 @@ import { configureCors } from './common/configs/cors.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, loggerConfig);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
   app.use(cookieParser());
   configureCors(app);
 
