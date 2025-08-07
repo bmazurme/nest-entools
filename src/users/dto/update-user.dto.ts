@@ -1,8 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { CreateUserDto } from './create-user.dto';
 import { Role } from '../../roles/entities/role.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 /**
  * DTO для обновления пользователя
