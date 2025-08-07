@@ -21,7 +21,7 @@ export class Block extends BaseEntity {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'document_id' })
+  @JoinColumn({ name: 'documentId' })
   document: Document;
 
   @OneToMany(() => Item, (rainRunoffItem) => rainRunoffItem.block, {
