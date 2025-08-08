@@ -14,9 +14,11 @@ export class DocumentsService {
   ) {}
 
   async create(createDocumentDto: CreateDocumentDto) {
+    console.log(createDocumentDto);
+
     const document = new Document();
     document.name = createDocumentDto.name;
-    document.type = createDocumentDto.documentType;
+    document.type = createDocumentDto.type;
     document.project = createDocumentDto.project;
 
     return await this.documentRepository.save(document);
