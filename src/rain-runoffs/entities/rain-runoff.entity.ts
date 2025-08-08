@@ -117,6 +117,25 @@ export class RainRunoff extends BaseEntity {
   })
   flow: number;
 
+  @Column({
+    nullable: false,
+    default: 0,
+  })
+  zone: number;
+
+  @Column({
+    nullable: false,
+    default: 0,
+  })
+  type: number;
+
+  @Column({
+    nullable: false,
+    default: 0,
+    type: 'float',
+  })
+  qr: number;
+
   @OneToOne(() => Item, (item) => item.rainRunoff)
   // @JoinColumn()
   item: Item;
