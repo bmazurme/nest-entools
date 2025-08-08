@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Project } from '../../projects/entities/project.entity';
-import { DocumentType } from '../../document-types/entities/document-type.entity';
+import { Type } from '../../types/entities/type.entity';
 import { Block } from '../../blocks/entities/block.entity';
 
 @Entity()
@@ -13,11 +13,11 @@ export class Document extends BaseEntity {
   @ManyToOne(() => Project, (project) => project.documents)
   project: Project;
 
-  @ManyToOne(() => DocumentType, (type) => type.documents, {
+  @ManyToOne(() => Type, (type) => type.documents, {
     nullable: false,
   })
   @JoinColumn({ name: 'typeId' })
-  type: DocumentType;
+  type: Type;
 
   @OneToMany(() => Block, (block) => block.document, {
     cascade: true,
