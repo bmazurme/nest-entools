@@ -43,13 +43,6 @@ export class RainRunoffDto {
   }
 
   id: number;
-  // roof: number;
-  // pavements: number;
-  // tracks: number;
-  // ground: number;
-  // cobblestone: number;
-  // stone: number;
-  // lawns: number;
   area: TypeRainArea;
   place: number;
   intensity: number;
