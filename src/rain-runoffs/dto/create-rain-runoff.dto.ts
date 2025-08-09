@@ -1,5 +1,5 @@
 export class CreateRainRunoffDto {
-  id: number;
+  // id: number;
   roof: number;
   pavements: number;
   tracks: number;
@@ -16,6 +16,4 @@ export class CreateRainRunoffDto {
   velocityPipe: number;
   velocityTray: number;
   flow: number;
-  zone: number;
-  type: number;
 }
