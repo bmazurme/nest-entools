@@ -1,5 +1,4 @@
 export class CreateRainRunoffDto {
-  // id: number;
   roof: number;
   pavements: number;
   tracks: number;
