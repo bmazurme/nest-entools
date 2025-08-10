@@ -16,8 +16,26 @@ export class ItemsService {
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    const rainRunoff = await this.rainRunoffRepository.create({});
-    // console.log(rainRunoff);
+    const rainRunoff = await this.rainRunoffRepository.create({
+      // id: 0,
+      roof: 0,
+      pavements: 0,
+      tracks: 0,
+      ground: 0,
+      cobblestone: 0,
+      stone: 0,
+      lawns: 0,
+      place: 0,
+      intensity: 0,
+      condition: 0,
+      timeInit: 0,
+      lengthPipe: 0,
+      lengthTray: 0,
+      velocityPipe: 0,
+      velocityTray: 0,
+      flow: 0,
+    });
+
     return await this.itemRepository.save({ ...createItemDto, rainRunoff });
   }
 
