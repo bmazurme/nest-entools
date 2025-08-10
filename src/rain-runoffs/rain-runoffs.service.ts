@@ -7,6 +7,9 @@ import { UpdateRainRunoffDto } from './dto/update-rain-runoff.dto';
 
 import { RainRunoff } from './entities/rain-runoff.entity';
 
+import getRainFlow from '../calc/rain-flow/rain-flow';
+import { RainRunoffDto } from './dto/rain-runoff.dto';
+
 @Injectable()
 export class RainRunoffsService {
   constructor(
@@ -25,8 +28,14 @@ export class RainRunoffsService {
     return `This action returns a #${id} rainRunoff`;
   }
 
-  update(id: number, updateRainRunoffDto: UpdateRainRunoffDto) {
-    return this.rainRunoffRepository.update(+id, updateRainRunoffDto);
+  async update(id: number, updateRainRunoffDto: UpdateRainRunoffDto) {
+    const rainRunoffDto = new RainRunoffDto(updateRainRunoffDto);
+    const result = getRainFlow(rainRunoffDto);
+
+    updateRainRunoffDto.flow = result.flow;
+    await this.rainRunoffRepository.update(+id, updateRainRunoffDto);
+
+    return updateRainRunoffDto;
   }
 
   // remove(id: number) {
