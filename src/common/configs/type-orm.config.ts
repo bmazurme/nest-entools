@@ -5,7 +5,7 @@ import { User } from '../../users/entities/user.entity';
 import { Role } from '../../roles/entities/role.entity';
 import { Project } from '../../projects/entities/project.entity';
 import { Document } from '../../documents/entities/document.entity';
-import { DocumentType } from '../../document-types/entities/document-type.entity';
+import { Type } from '../../types/entities/type.entity';
 import { Block } from '../../blocks/entities/block.entity';
 import { Item } from '../../items/entities/item.entity';
 import { RainRunoff } from 'src/rain-runoffs/entities/rain-runoff.entity';
@@ -19,16 +19,7 @@ export const TypeOrmModuleConfig = TypeOrmModule.forRootAsync({
     username: configService.get('POSTGRES_USER') ?? 'postgres',
     password: configService.get('POSTGRES_PASSWORD') ?? 'newPassword',
     database: configService.get('POSTGRES_DB') ?? 'my-db-name',
-    entities: [
-      User,
-      Role,
-      Project,
-      Document,
-      DocumentType,
-      Block,
-      Item,
-      RainRunoff,
-    ],
+    entities: [User, Role, Project, Document, Type, Block, Item, RainRunoff],
     synchronize: true,
   }),
   inject: [ConfigService],
