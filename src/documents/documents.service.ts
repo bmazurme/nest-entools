@@ -14,8 +14,6 @@ export class DocumentsService {
   ) {}
 
   async create(createDocumentDto: CreateDocumentDto) {
-    console.log(createDocumentDto);
-
     const document = new Document();
     document.name = createDocumentDto.name;
     document.type = createDocumentDto.type;
@@ -33,10 +31,13 @@ export class DocumentsService {
   async findOne(id: number) {
     return await this.documentRepository.findOne({
       where: { id },
-      relations: ['blocks', 'blocks.items'],
+      relations: ['blocks', 'blocks.items', 'type'],
       select: {
         id: true,
         name: true,
+        type: {
+          id: true,
+        },
       },
     });
   }
