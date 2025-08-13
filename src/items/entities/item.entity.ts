@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Block } from '../../blocks/entities/block.entity';
 import { RainRunoff } from '../../rain-runoffs/entities/rain-runoff.entity';
+import { RainRoof } from '../../rain-roofs/entities/rain-roof.entity';
 
 @Entity()
 export class Item extends BaseEntity {
@@ -18,11 +19,18 @@ export class Item extends BaseEntity {
   index: number;
 
   @OneToOne(() => RainRunoff, (rainRunoff) => rainRunoff.item, {
-    nullable: false,
+    nullable: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn()
   rainRunoff: RainRunoff;
+
+  @OneToOne(() => RainRoof, (rainRoof) => rainRoof.item, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  rainRoof: RainRoof;
 
   @ManyToOne(() => Block, (block) => block.items, {
     nullable: false,
